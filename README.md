@@ -4,4 +4,5 @@ This repository holds all information that will be helpful if you are developing
 # Content
 [How to add reference to Oxide](./DOCS/Oxide_DLL_Reference.md)</br>
 [How to disable sandbox mode in Oxide](./DOCS/Disable_Oxide_Sandbox.md)</br>
-[How to hot-reload Harmony mods](/DOCS/Hotreload_Harmony_Mods.md)
+[How to hot-reload Harmony mods](/DOCS/Hotreload_Harmony_Mods.md)</br>
+[Recognized launch options by the server](/DOCS/Recognized_Launch_Options.md)</br>
