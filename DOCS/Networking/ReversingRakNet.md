@@ -49,7 +49,7 @@ RakNet is the "legacy" method of networking, the newer method is SteamNetworking
 **Parameters:** `void* net` <br>
 **Returns:** `uint32_t` <br>
 <br>
-**Description:** Returns `(uint32_t) RakNetStruct+8]+PacketStruct+4]`. I think this is the local address, but in weird format, since its not anything like a normal address. Maybe memory address/offset? Seems its `16777343` for my case. <br>
+**Description:** Returns `(uint32_t) RakNetStruct+8]+PacketStruct+4]`. This is the address of the client/server, the one you started listening on. `16777343` means 127.0.0.1 which is the loopback address, the value `16777343` is 4 byte number from which each byte is the octed of the IP address <br>
 *See structure image below* <br>
 ![img](../../Resources/Images/RakNetReversal/packetstruct.png)
 
