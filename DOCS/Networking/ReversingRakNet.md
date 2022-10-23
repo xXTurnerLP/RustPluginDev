@@ -46,219 +46,219 @@ RakNet is the "legacy" method of networking, the newer method is SteamNetworking
 
 # Function definitions
 ## NETRCV_Address
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_GUID
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `uint64_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_LengthBits
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_Port
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_RawData
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `void*` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_ReadBytes
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, void* data, int length` <br>
+**Returns:** `bool` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_SetReadPointer
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, int bitsOffset` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETRCV_UnreadBits
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_Broadcast
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, int priority, int reliability, int channel` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
-## NETSND_ReadCompressedF
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+## NETSND_ReadCompressedFloat
+**Parameters:** `void* net` <br>
+**Returns:** `float` <br>
 <br>
-Description: ...
+**Description:** ...
 
-## NETSND_ReadCompressedI
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+## NETSND_ReadCompressedInt32
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
-## NETSND_ReadCompressedI
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+## NETSND_ReadCompressedInt64
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_Send
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID, int priority, int reliability, int channel` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_Size
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_Start
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_WriteBytes
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, void* data, int length` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_WriteCompressed
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_WriteCompressed
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NETSND_WriteCompressed
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_Close
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_CloseConnection
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_Create
-Parameters: `none` <br>
-Returns: void* <br>
+**Parameters:** `none` <br>
+**Returns:** `void*` - Ptr to raknetstruct <br>
 <br>
-Description: Creates heap allocated block of 0x250 bytes. Some values are initialized to 0, 2048 and 1. <br>
+**Description:** Creates heap allocated block of 0x250 bytes. Some values are initialized to 0, 2048 and 1. <br>
 Image of how the structure looks in ReClass (name of fields are what they are initialized to) <br>
 ![img](../../Resources/Images/RakNetReversal/raknetstruct_init.png)
 
 ## NET_GetAddress
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `void*` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_GetAveragePing
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_GetGUID
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_GetLastPing
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_GetLowestPing
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
-## NET_GetReceiveBufferSi
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+## NET_GetReceiveBufferSize
+**Parameters:** `void* net` <br>
+**Returns:** `uint32_t` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_GetStatistics
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, uint64_t connectionID, RaknetStats* data, int dataLength` <br>
+**Returns:** `bool` <br>
 <br>
-Description: ...
+**Description:** ...
 
-## NET_GetStatisticsStrin
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+## NET_GetStatisticsString
+**Parameters:** `void* net, uint64_t connectionID` <br>
+**Returns:** `void*` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_LastStartupError
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `void*` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_LimitBandwidth
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `?` <br>
+**Returns:** `?` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_Receive
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net` <br>
+**Returns:** `bool` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_SendMessage
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, void* data, int length, uint32_t adr, uint16_t port` <br>
+**Returns:** `void` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_StartClient
-Parameters: `void* net, char* hostName, int port, int retries, int retryDelay, int timeout` <br>
-Returns: `int` <br>
+**Parameters:** `void* net, char* hostName, int port, int retries, int retryDelay, int timeout` <br>
+**Returns:** `int` <br>
 <br>
-Description: ...
+**Description:** ...
 
 ## NET_StartServer
-Parameters: `void* net, ...` <br>
-Returns: void <br>
+**Parameters:** `void* net, char* ip, int port, int maxConnections` <br>
+**Returns:** `int` <br>
 <br>
-Description: NOTE: If IP is empty string it is considered to be 0.0.0.0
+**Description:** NOTE: If IP is empty string it is considered to be 0.0.0.0
