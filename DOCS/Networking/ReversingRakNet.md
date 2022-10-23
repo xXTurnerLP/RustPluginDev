@@ -261,4 +261,5 @@ Image of how the structure looks in ReClass (name of fields are what they are in
 **Parameters:** `void* net, char* ip, int port, int maxConnections` <br>
 **Returns:** `int` <br>
 <br>
-**Description:** NOTE: If IP is empty string it is considered to be 0.0.0.0
+**Description:** Initializes structures and copies ip, port and maxConnections to internal structures<br>
+NOTE: If IP is empty string it is considered to be 0.0.0.0
