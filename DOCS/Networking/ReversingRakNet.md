@@ -49,31 +49,39 @@ RakNet is the "legacy" method of networking, the newer method is SteamNetworking
 **Parameters:** `void* net` <br>
 **Returns:** `uint32_t` <br>
 <br>
-**Description:** ...
+**Description:** Returns `(uint32_t) RakNetStruct+8]+PacketStruct+4]`. I think this is the local address, but in weird format, since its not anything like a normal address. Maybe memory address/offset? Seems its `16777343` for my case. <br>
+*See structure image below* <br>
+![img](../../Resources/Images/RakNetReversal/packetstruct.png)
 
 ## NETRCV_GUID
 **Parameters:** `void* net` <br>
 **Returns:** `uint64_t` <br>
 <br>
-**Description:** ...
+**Description:** Returns `(uint64_t) RakNetStruct+8]+PacketStruct+18]`. GUID should be unique per every raknet instance, they might collide across different processes/instances<br>
+*See structure image below* <br>
+![img](../../Resources/Images/RakNetReversal/packetstruct.png)
 
 ## NETRCV_LengthBits
 **Parameters:** `void* net` <br>
 **Returns:** `int` <br>
 <br>
-**Description:** ...
+**Description:** Returns `(uint32_t) RakNetStruct+130]`. This is how much bits are received from the last call to NET_Receive() <br>
+![img](../../Resources/Images/RakNetReversal/raknetstruct_LengthBits.png)
 
 ## NETRCV_Port
 **Parameters:** `void* net` <br>
 **Returns:** `uint32_t` <br>
 <br>
-**Description:** ...
+**Description:** Returns `(uint16_t) RakNetStruct+8]+PacketStruct+2]`. Again this should be the local port, but its not the correct port, its some other port<br>
+*See structure image below* <br>
+![img](../../Resources/Images/RakNetReversal/packetstruct.png)
 
 ## NETRCV_RawData
 **Parameters:** `void* net` <br>
 **Returns:** `void*` <br>
 <br>
-**Description:** ...
+**Description:** Returns `(void*) RakNetStruct+140]`. This is a pointer to the data ~~which starts at `RakNetStruct+149` which is at the end of the RakNetStruct~~ (this seems to not be true after a while/the initialization) <br>
+![img](../../Resources/Images/RakNetReversal/raknetstruct_RawDataPtr.png)
 
 ## NETRCV_ReadBytes
 **Parameters:** `void* net, void* data, int length` <br>
@@ -91,7 +99,7 @@ RakNet is the "legacy" method of networking, the newer method is SteamNetworking
 **Parameters:** `void* net` <br>
 **Returns:** `int` <br>
 <br>
-**Description:** ...
+**Description:** `(uint32_t) RakNetStruct+138] - NETRCV_LengthBits()` if this is `== NETRCV_LengthBits()` then just `NETRCV_LengthBits()` is returned
 
 ## NETSND_Broadcast
 **Parameters:** `void* net, int priority, int reliability, int channel` <br>
