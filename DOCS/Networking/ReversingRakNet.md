@@ -262,4 +262,4 @@ Image of how the structure looks in ReClass (name of fields are what they are in
 **Returns:** `int` <br>
 <br>
 **Description:** Initializes structures and copies ip, port and maxConnections to internal structures<br>
-NOTE: If IP is empty string it is considered to be 0.0.0.0
+NOTE: If IP is empty string it seems it binds to 0.0.0.0 which is just binding to any available IP. Usually this will be computer's IP (like: 192.168.0.170)
