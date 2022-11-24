@@ -2,7 +2,7 @@
 This repository holds all information that will be helpful if you are developing a plugin/addon/mod for rust's server. Some of the information is found on the internet, some is reverse engineered from the server itself. This is mostly for me to use as reference, but anyone can use it if they find it useful.
 
 ## Request information
-You can request any information regarding Rust or its dedicated server, **if I find it useful for this repository** I will add it (even if it requires me to reverse engineer stuff/waste a lot of time)
+You can request any information regarding Rust or its dedicated server, **if I find it useful for this repository** I will add it (even if it requires me to reverse engineer stuff/waste a lot of time) <br>
 To request something just open an [Issue](https://github.com/xXTurnerLP/RustPluginDev/issues/new).
 
 # Content
