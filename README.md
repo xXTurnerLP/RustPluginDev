@@ -7,3 +7,4 @@ This repository holds all information that will be helpful if you are developing
 [How to disable sandbox mode in Oxide](./DOCS/Disable_Oxide_Sandbox.md)</br>
 [How to hot-reload Harmony mods](/DOCS/Hotreload_Harmony_Mods.md)</br>
 [Recognized launch options by the server](/DOCS/Recognized_Launch_Options.md)</br>
+[Demo file format](/DOCS/DemoFormat.md)</br>
