@@ -12,3 +12,4 @@ To request something just open an [Issue](https://github.com/xXTurnerLP/RustPlug
 [How to hot-reload Harmony mods](/DOCS/Hotreload_Harmony_Mods.md)</br>
 [Recognized launch options by the server](/DOCS/Recognized_Launch_Options.md)</br>
 [Demo file format](/DOCS/DemoFormat.md)</br>
+[RPC List](/DOCS/RPCs.md.md)</br>
