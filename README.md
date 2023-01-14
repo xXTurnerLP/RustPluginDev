@@ -13,3 +13,4 @@ To request something just open an [Issue](https://github.com/xXTurnerLP/RustPlug
 [Recognized launch options by the server](/DOCS/Recognized_Launch_Options.md)</br>
 [Demo file format](/DOCS/DemoFormat.md)</br>
 [RPC List](/DOCS/RPCs.md)</br>
+[Unity UI](/DOCS/UnityUI.md)</br>
