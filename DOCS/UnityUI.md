@@ -57,6 +57,221 @@ public void AddUI(BaseEntity.RPCMessage msg)
 		}
 	}
 }
+
+
+
+
+
+
+// Token: 0x0600069F RID: 1695 RVA: 0x0002FAF8 File Offset: 0x0002DCF8
+private void CreateComponents(GameObject go, JSON.Object obj)
+{
+	string @string = obj.GetString("type", "UnityEngine.UI.Text");
+	uint num = <PrivateImplementationDetails>.ComputeStringHash(@string);
+	if (num <= 1466421966U)
+	{
+		if (num <= 976416075U)
+		{
+			if (num != 938738728U)
+			{
+				if (num != 976416075U)
+				{
+					return;
+				}
+				if (!(@string == "UnityEngine.UI.Image"))
+				{
+					return;
+				}
+				Image image = go.AddComponent<Image>();
+				image.sprite = FileSystem.Load<Sprite>(obj.GetString("sprite", "Assets/Content/UI/UI.Background.Tile.psd"), true);
+				image.material = FileSystem.Load<Material>(obj.GetString("material", "Assets/Icons/IconMaterial.mat"), true);
+				image.color = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+				image.type = (Image.Type)Enum.Parse(typeof(Image.Type), obj.GetString("imagetype", "Simple"));
+				if (obj.ContainsKey("png"))
+				{
+					this.SetImageFromServer(image, uint.Parse(obj.GetString("png", "")));
+				}
+				this.GraphicComponentCreated(image, obj);
+				return;
+			}
+			else
+			{
+				if (!(@string == "UnityEngine.UI.Outline"))
+				{
+					return;
+				}
+				Outline outline = go.AddComponent<Outline>();
+				outline.effectColor = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+				outline.effectDistance = Vector2Ex.Parse(obj.GetString("distance", "1.0 -1.0"));
+				outline.useGraphicAlpha = obj.ContainsKey("useGraphicAlpha");
+				return;
+			}
+		}
+		else if (num != 1120441549U)
+		{
+			if (num != 1466421966U)
+			{
+				return;
+			}
+			if (!(@string == "UnityEngine.UI.InputField"))
+			{
+				return;
+			}
+			Text text = go.AddComponent<Text>();
+			text.text = obj.GetString("text", "Text");
+			text.fontSize = obj.GetInt("fontSize", 14);
+			text.font = FileSystem.Load<Font>("Assets/Content/UI/Fonts/" + obj.GetString("font", "RobotoCondensed-Bold.ttf"), true);
+			text.alignment = (TextAnchor)Enum.Parse(typeof(TextAnchor), obj.GetString("align", "UpperLeft"));
+			text.color = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+			InputField inputField = go.AddComponent<InputField>();
+			inputField.textComponent = text;
+			inputField.characterLimit = obj.GetInt("characterLimit", 0);
+			if (obj.ContainsKey("command"))
+			{
+				string cmd = obj.GetString("command", "");
+				inputField.onEndEdit.AddListener(delegate(string value)
+				{
+					ConsoleNetwork.ClientRunOnServer(cmd + " " + value);
+				});
+			}
+			if (obj.ContainsKey("password"))
+			{
+				inputField.inputType = InputField.InputType.Password;
+			}
+			this.GraphicComponentCreated(text, obj);
+			return;
+		}
+		else
+		{
+			if (!(@string == "UnityEngine.UI.RawImage"))
+			{
+				return;
+			}
+			RawImage rawImage = go.AddComponent<RawImage>();
+			rawImage.texture = FileSystem.Load<Texture>(obj.GetString("sprite", "Assets/Icons/rust.png"), true);
+			rawImage.color = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+			if (obj.ContainsKey("material"))
+			{
+				rawImage.material = FileSystem.Load<Material>(obj.GetString("material", ""), true);
+			}
+			if (obj.ContainsKey("url"))
+			{
+				Rust.Global.Runner.StartCoroutine(this.LoadTextureFromWWW(rawImage, obj.GetString("url", "")));
+			}
+			if (obj.ContainsKey("png"))
+			{
+				this.SetImageFromServer(rawImage, uint.Parse(obj.GetString("png", "")));
+			}
+			this.GraphicComponentCreated(rawImage, obj);
+			return;
+		}
+	}
+	else
+	{
+		if (num <= 2471485801U)
+		{
+			if (num != 1665405120U)
+			{
+				if (num != 2471485801U)
+				{
+					return;
+				}
+				if (!(@string == "RectTransform"))
+				{
+					return;
+				}
+				RectTransform component = go.GetComponent<RectTransform>();
+				if (component)
+				{
+					component.anchorMin = Vector2Ex.Parse(obj.GetString("anchormin", "0.0 0.0"));
+					component.anchorMax = Vector2Ex.Parse(obj.GetString("anchormax", "1.0 1.0"));
+					component.offsetMin = Vector2Ex.Parse(obj.GetString("offsetmin", "0.0 0.0"));
+					component.offsetMax = Vector2Ex.Parse(obj.GetString("offsetmax", "1.0 1.0"));
+					return;
+				}
+			}
+			else
+			{
+				if (!(@string == "Countdown"))
+				{
+					return;
+				}
+				CommunityEntity.Countdown countdown = go.AddComponent<CommunityEntity.Countdown>();
+				countdown.endTime = obj.GetInt("endTime", 0);
+				countdown.startTime = obj.GetInt("startTime", 0);
+				countdown.step = obj.GetInt("step", 1);
+				if (obj.ContainsKey("command"))
+				{
+					countdown.command = obj.GetString("command", "");
+				}
+			}
+			return;
+		}
+		if (num != 3307054824U)
+		{
+			if (num != 4090570613U)
+			{
+				if (num != 4278175142U)
+				{
+					return;
+				}
+				if (!(@string == "UnityEngine.UI.Button"))
+				{
+					return;
+				}
+				Button button = go.AddComponent<Button>();
+				if (obj.ContainsKey("command"))
+				{
+					string cmd = obj.GetString("command", "");
+					button.onClick.AddListener(delegate
+					{
+						ConsoleNetwork.ClientRunOnServer(cmd);
+					});
+				}
+				if (obj.ContainsKey("close"))
+				{
+					string pnlName = obj.GetString("close", "");
+					button.onClick.AddListener(delegate
+					{
+						this.DestroyPanel(pnlName);
+					});
+				}
+				Image image2 = go.AddComponent<Image>();
+				image2.sprite = FileSystem.Load<Sprite>(obj.GetString("sprite", "Assets/Content/UI/UI.Background.Tile.psd"), true);
+				image2.material = FileSystem.Load<Material>(obj.GetString("material", "Assets/Icons/IconMaterial.mat"), true);
+				image2.color = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+				image2.type = (Image.Type)Enum.Parse(typeof(Image.Type), obj.GetString("imagetype", "Simple"));
+				button.image = image2;
+				this.GraphicComponentCreated(image2, obj);
+				return;
+			}
+			else
+			{
+				if (!(@string == "UnityEngine.UI.Text"))
+				{
+					return;
+				}
+				Text text2 = go.AddComponent<Text>();
+				text2.text = obj.GetString("text", "Text");
+				text2.fontSize = obj.GetInt("fontSize", 14);
+				text2.font = FileSystem.Load<Font>("Assets/Content/UI/Fonts/" + obj.GetString("font", "RobotoCondensed-Bold.ttf"), true);
+				text2.alignment = (TextAnchor)Enum.Parse(typeof(TextAnchor), obj.GetString("align", "UpperLeft"));
+				text2.color = ColorEx.Parse(obj.GetString("color", "1.0 1.0 1.0 1.0"));
+				this.GraphicComponentCreated(text2, obj);
+				return;
+			}
+		}
+		else
+		{
+			if (!(@string == "NeedsCursor"))
+			{
+				return;
+			}
+			go.AddComponent<NeedsCursor>();
+			return;
+		}
+	}
+}
 ```
 ---
 Rust (October 2022 build) C++ decompiled
@@ -371,6 +586,765 @@ LABEL_78:
         if ( (v72 == -1 || *(_DWORD *)(v73 + 4i64 * v72) != 473) && v6 )
           sub_1803B99B0(v6, 0i64);
       }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+void __stdcall CommunityEntity__CreateComponents(CommunityEntity_o *this, UnityEngine_GameObject_o *go, JSON_Object_o *obj, const MethodInfo *method)
+{
+  System_String_o *v7; // rdi
+  uint32_t v8; // eax
+  const MethodInfo_106E1A0 *v9; // rdx
+  Il2CppObject *v10; // rbx
+  System_String_o *v11; // rax
+  int32_t v12; // eax
+  System_String_o *v13; // rax
+  __int64 v14; // rdx
+  System_String_o *v15; // rdi
+  __int64 v16; // r8
+  __int64 v17; // r9
+  Il2CppObject *v18; // rax
+  __int64 v19; // rdx
+  System_String_o *v20; // rdi
+  __int64 v21; // r8
+  __int64 v22; // r9
+  int32_t v23; // eax
+  System_String_o *v24; // rax
+  UnityEngine_Color_o *v25; // rax
+  Il2CppClass *v26; // r9
+  const MethodInfo *v27; // r8
+  System_String_o *v28; // rax
+  int32_t v29; // eax
+  Il2CppObject *v30; // rdi
+  __int64 v31; // r14
+  System_String_o *v32; // rax
+  UnityEngine_Events_UnityEvent_o *v33; // r15
+  OcclusionCulling_OnVisibilityChanged_o *v34; // r13
+  __int64 v35; // r14
+  System_String_o *v36; // rax
+  UnityEngine_Events_UnityEvent_o *v37; // r15
+  OcclusionCulling_OnVisibilityChanged_o *v38; // r13
+  __int64 v39; // rdx
+  __int64 v40; // r8
+  __int64 v41; // r9
+  System_String_o *v42; // r14
+  Il2CppObject *v43; // rax
+  System_String_o *v44; // rax
+  Il2CppObject *v45; // rax
+  System_String_o *v46; // rax
+  UnityEngine_Color_o *v47; // rax
+  Il2CppClass *v48; // r9
+  const MethodInfo *v49; // r8
+  __int64 v50; // rdx
+  __int64 v51; // r8
+  __int64 v52; // r9
+  System_String_o *v53; // r14
+  int32_t v54; // eax
+  __int64 v55; // rdx
+  Il2CppObject *v56; // rbx
+  __int64 v57; // r8
+  __int64 v58; // r9
+  System_String_o *v59; // rax
+  UnityEngine_Vector2_o v60; // rax
+  System_String_o *v61; // rax
+  UnityEngine_Vector2_o v62; // rax
+  System_String_o *v63; // rax
+  UnityEngine_Vector2_o v64; // rax
+  System_String_o *v65; // rax
+  UnityEngine_Vector2_o v66; // rax
+  __int64 v67; // rdx
+  System_String_o *v68; // rdi
+  __int64 v69; // r8
+  __int64 v70; // r9
+  Il2CppObject *v71; // rax
+  System_String_o *v72; // rax
+  UnityEngine_Color_o *v73; // rax
+  Il2CppClass *v74; // r9
+  const MethodInfo *v75; // r8
+  __int64 v76; // rdx
+  System_String_o *v77; // rdi
+  __int64 v78; // r8
+  __int64 v79; // r9
+  Il2CppObject *v80; // rax
+  UnityEngine_MonoBehaviour_o *v81; // r14
+  __int64 v82; // rdx
+  System_String_o *v83; // r15
+  __int64 v84; // rdi
+  System_String_o *v85; // rax
+  Il2CppObject *v86; // r14
+  int32_t v87; // eax
+  System_String_o *v88; // rax
+  __int64 v89; // rdx
+  System_String_o *v90; // rdi
+  __int64 v91; // r8
+  __int64 v92; // r9
+  Il2CppObject *v93; // rax
+  __int64 v94; // rdx
+  System_String_o *v95; // rdi
+  __int64 v96; // r8
+  __int64 v97; // r9
+  int32_t v98; // eax
+  System_String_o *v99; // rax
+  UnityEngine_Color_o *v100; // rax
+  Il2CppClass *v101; // r9
+  const MethodInfo *v102; // r8
+  Il2CppObject *v103; // rax
+  UnityEngine_UI_InputField_o *v104; // rdi
+  int32_t v105; // eax
+  __int64 v106; // r15
+  System_String_o *v107; // rax
+  UnityEngine_Events_UnityEvent_Vector2__o *v108; // r13
+  System_String_o *v109; // rax
+  __int64 v110; // rdx
+  __int64 v111; // r8
+  __int64 v112; // r9
+  System_String_o *v113; // r15
+  int32_t v114; // eax
+  Il2CppObject *v115; // rbx
+  int32_t v116; // eax
+  System_String_o *v117; // rax
+  Il2CppObject *v118; // rbx
+  System_String_o *v119; // rax
+  UnityEngine_Color_o *v120; // rax
+  System_String_o *v121; // rax
+  UnityEngine_Vector2_o v122; // rax
+  bool v123; // al
+  __int64 v124; // rdi
+  Il2CppObject *v125; // rax
+  UnityEngine_UI_MaskableGraphic_o **v126; // r14
+  UnityEngine_UI_Image_o *v127; // rbx
+  __int64 v128; // rdx
+  __int64 v129; // r8
+  __int64 v130; // r9
+  System_String_o *v131; // r15
+  Il2CppObject *v132; // rax
+  UnityEngine_UI_MaskableGraphic_o *v133; // rbx
+  System_String_o *v134; // rax
+  Il2CppObject *v135; // rax
+  UnityEngine_UI_MaskableGraphic_o *v136; // rbx
+  System_String_o *v137; // rax
+  UnityEngine_Color_o *v138; // rax
+  UnityEngine_UI_MaskableGraphic_c *v139; // r9
+  const MethodInfo *v140; // r8
+  UnityEngine_UI_Image_o *v141; // rbx
+  __int64 v142; // rdx
+  __int64 v143; // r8
+  __int64 v144; // r9
+  System_String_o *v145; // r15
+  int32_t v146; // eax
+  System_String_o *v147; // rax
+  int32_t v148; // eax
+  __int64 v149; // rdx
+  ItemDefinition_o *v150; // rbx
+  __int64 v151; // r8
+  __int64 v152; // r9
+  __int64 v153; // r15
+  double v154; // xmm0_8
+  unsigned __int64 v155; // rcx
+  System_Collections_Generic_IEnumerable_TSource__o *v156; // rdi
+  OcclusionCulling_OnVisibilityChanged_o *v157; // rbx
+  uint64_t v158; // rdi
+  OcclusionCulling_OnVisibilityChanged_o *v159; // rbx
+  __int64 v160; // rdx
+  UnityEngine_Object_o *v161; // rbx
+  __int64 v162; // r8
+  __int64 v163; // r9
+  __int64 v164; // rax
+  UnityEngine_UI_Image_o *v165; // rcx
+  UnityEngine_Sprite_o *v166; // rdx
+  __int64 v167; // rax
+  UnityEngine_UI_Image_o *v168; // rbx
+  __int64 v169; // rax
+  uint32_t textureID[4]; // [rsp+20h] [rbp-50h] BYREF
+  ItemSkinDirectory_Skin_o call; // [rsp+30h] [rbp-40h] BYREF
+  ItemSkinDirectory_Skin_o v172; // [rsp+50h] [rbp-20h] BYREF
+  uint32_t result; // [rsp+B0h] [rbp+40h] BYREF
+
+  if ( !byte_1832F47E6 )
+  {
+    sub_1803B9870(14901i64, (__int64)go);
+    byte_1832F47E6 = 1;
+  }
+  textureID[0] = 0;
+  result = 0;
+  *(_OWORD *)&v172.fields.id = 0i64;
+  *(_OWORD *)&v172.fields.isSkin = 0i64;
+  if ( !obj )
+    goto LABEL_162;
+  v7 = JSON_Object__GetString(obj, StringLiteral_7, StringLiteral_16421, 0i64);
+  v8 = PrivateImplementationDetails___ComputeStringHash(v7, 0i64);
+  if ( v8 > 0x634410C0 )
+  {
+    if ( v8 <= 0xC51DA6E8 )
+    {
+      if ( v8 == -1823481495 )
+      {
+        if ( System_String__op_Equality(v7, StringLiteral_16428, 0i64) )
+        {
+          if ( !go )
+            goto LABEL_162;
+          v56 = UnityEngine_GameObject__GetComponent_object_(
+                  go,
+                  Method_UnityEngine_GameObject_GetComponent_RectTransform___);
+          if ( (UnityEngine_Object_TypeInfo->_2.bitflags2 & 2) != 0 && !UnityEngine_Object_TypeInfo->_2.cctor_finished )
+            il2cpp_runtime_class_init(UnityEngine_Object_TypeInfo, v55, v57, v58);
+          if ( UnityEngine_Object__op_Implicit((UnityEngine_Object_o *)v56, 0i64) )
+          {
+            v59 = JSON_Object__GetString(obj, StringLiteral_16459, StringLiteral_16460, 0i64);
+            v60 = UnityEngine_Vector2Ex__Parse(v59, 0i64);
+            if ( v56 )
+            {
+              UnityEngine_RectTransform__set_anchorMin((UnityEngine_RectTransform_o *)v56, v60, 0i64);
+              v61 = JSON_Object__GetString(obj, StringLiteral_16461, StringLiteral_16462, 0i64);
+              v62 = UnityEngine_Vector2Ex__Parse(v61, 0i64);
+              UnityEngine_RectTransform__set_anchorMax((UnityEngine_RectTransform_o *)v56, v62, 0i64);
+              v63 = JSON_Object__GetString(obj, StringLiteral_16463, StringLiteral_16460, 0i64);
+              v64 = UnityEngine_Vector2Ex__Parse(v63, 0i64);
+              UnityEngine_RectTransform__set_offsetMin((UnityEngine_RectTransform_o *)v56, v64, 0i64);
+              v65 = JSON_Object__GetString(obj, StringLiteral_16464, StringLiteral_16462, 0i64);
+              v66 = UnityEngine_Vector2Ex__Parse(v65, 0i64);
+              UnityEngine_RectTransform__set_offsetMax((UnityEngine_RectTransform_o *)v56, v66, 0i64);
+              return;
+            }
+            goto LABEL_162;
+          }
+        }
+        return;
+      }
+      if ( v8 != -987912472 || !System_String__op_Equality(v7, StringLiteral_16427, 0i64) )
+        return;
+      if ( go )
+      {
+        v9 = Method_UnityEngine_GameObject_AddComponent_NeedsCursor___;
+        goto LABEL_10;
+      }
+    }
+    else
+    {
+      if ( v8 == -429320769 )
+      {
+        if ( !System_String__op_Equality(v7, StringLiteral_16430, 0i64) )
+          return;
+        if ( go )
+        {
+          v9 = Method_UnityEngine_GameObject_AddComponent_NeedsKeyboard___;
+LABEL_10:
+          UnityEngine_GameObject__AddComponent_object_(go, v9);
+          return;
+        }
+        goto LABEL_162;
+      }
+      if ( v8 == -204396683 )
+      {
+        if ( System_String__op_Equality(v7, StringLiteral_16421, 0i64) )
+        {
+          if ( !go )
+            goto LABEL_162;
+          v10 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Text___);
+          v11 = JSON_Object__GetString(obj, (System_String_o *)StringLiteral_3317, StringLiteral_4696, 0i64);
+          if ( !v10 )
+            goto LABEL_162;
+          ((void (__fastcall *)(Il2CppObject *, System_String_o *, const MethodInfo *))v10->klass->vtable[73].methodPtr)(
+            v10,
+            v11,
+            v10->klass->vtable[73].method);
+          v12 = JSON_Object__GetInt(obj, StringLiteral_16431, 14, 0i64);
+          UnityEngine_UI_Text__set_fontSize((UnityEngine_UI_Text_o *)v10, v12, 0i64);
+          v13 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7507, StringLiteral_16433, 0i64);
+          v15 = System_String__Concat_6470864448(StringLiteral_16432, v13, 0i64);
+          if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+            il2cpp_runtime_class_init(FileSystem_TypeInfo, v14, v16, v17);
+          v18 = FileSystem__Load_object_(v15, 1, Method_FileSystem_Load_Font___);
+          UnityEngine_UI_Text__set_font((UnityEngine_UI_Text_o *)v10, (UnityEngine_Font_o *)v18, 0i64);
+          v20 = JSON_Object__GetString(obj, StringLiteral_16434, *(System_String_o **)&StringLiteral_73, 0i64);
+          if ( (CommunityEntity_TypeInfo->_2.bitflags2 & 2) != 0 && !CommunityEntity_TypeInfo->_2.cctor_finished )
+            il2cpp_runtime_class_init(CommunityEntity_TypeInfo, v19, v21, v22);
+          v23 = CommunityEntity__ParseEnum_VerticalWrapMode_(v20, 0, Method_CommunityEntity_ParseEnum_TextAnchor___);
+          UnityEngine_UI_Text__set_alignment((UnityEngine_UI_Text_o *)v10, v23, 0i64);
+          v24 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+          v25 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v24, 0i64);
+          v26 = v10->klass;
+          v27 = v10->klass->vtable[23].method;
+          *(UnityEngine_Color_o *)&call.fields.id = *v25;
+          ((void (__fastcall *)(Il2CppObject *, ItemSkinDirectory_Skin_o *, const MethodInfo *))v26->vtable[23].methodPtr)(
+            v10,
+            &call,
+            v27);
+          v28 = JSON_Object__GetString(obj, StringLiteral_16436, StringLiteral_16437, 0i64);
+          v29 = CommunityEntity__ParseEnum_VerticalWrapMode_(
+                  v28,
+                  0,
+                  Method_CommunityEntity_ParseEnum_VerticalWrapMode___);
+          UnityEngine_UI_Text__set_verticalOverflow((UnityEngine_UI_Text_o *)v10, v29, 0i64);
+          goto LABEL_23;
+        }
+        return;
+      }
+      if ( v8 != -16792154 || !System_String__op_Equality(v7, StringLiteral_16424, 0i64) )
+        return;
+      if ( !go )
+        goto LABEL_162;
+      v30 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Button___);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16447, 0i64) )
+      {
+        v31 = sub_1803B99A0((__int64)CommunityEntity___c__DisplayClass19_2_TypeInfo);
+        Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+          (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v31,
+          0i64);
+        v32 = JSON_Object__GetString(obj, StringLiteral_16447, *(System_String_o **)&StringLiteral_73, 0i64);
+        if ( !v31 )
+          goto LABEL_162;
+        *(_QWORD *)(v31 + 16) = v32;
+        init_csharp_struct_member(v31 + 16, (__int64)v32);
+        if ( !v30 )
+          goto LABEL_162;
+        v33 = (UnityEngine_Events_UnityEvent_o *)v30[14].monitor;
+        v34 = (OcclusionCulling_OnVisibilityChanged_o *)sub_1803B99A0((__int64)UnityEngine_Events_UnityAction_TypeInfo);
+        OcclusionCulling_OnVisibilityChanged___ctor(
+          v34,
+          (Il2CppObject *)v31,
+          Method_CommunityEntity___c__DisplayClass19_2__CreateComponents_b__2__,
+          0i64);
+        if ( !v33 )
+          goto LABEL_162;
+        UnityEngine_Events_UnityEvent__AddListener(v33, (UnityEngine_Events_UnityAction_o *)v34, 0i64);
+      }
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_5286, 0i64) )
+      {
+        v35 = sub_1803B99A0((__int64)CommunityEntity___c__DisplayClass19_3_TypeInfo);
+        Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+          (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v35,
+          0i64);
+        if ( !v35 )
+          goto LABEL_162;
+        *(_QWORD *)(v35 + 24) = this;
+        init_csharp_struct_member(v35 + 24, (__int64)this);
+        v36 = JSON_Object__GetString(obj, StringLiteral_5286, *(System_String_o **)&StringLiteral_73, 0i64);
+        *(_QWORD *)(v35 + 16) = v36;
+        init_csharp_struct_member(v35 + 16, (__int64)v36);
+        if ( !v30 )
+          goto LABEL_162;
+        v37 = (UnityEngine_Events_UnityEvent_o *)v30[14].monitor;
+        v38 = (OcclusionCulling_OnVisibilityChanged_o *)sub_1803B99A0((__int64)UnityEngine_Events_UnityAction_TypeInfo);
+        OcclusionCulling_OnVisibilityChanged___ctor(
+          v38,
+          (Il2CppObject *)v35,
+          Method_CommunityEntity___c__DisplayClass19_3__CreateComponents_b__3__,
+          0i64);
+        if ( !v37 )
+          goto LABEL_162;
+        UnityEngine_Events_UnityEvent__AddListener(v37, (UnityEngine_Events_UnityAction_o *)v38, 0i64);
+      }
+      v10 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Image___);
+      v42 = JSON_Object__GetString(obj, StringLiteral_16438, StringLiteral_16439, 0i64);
+      if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(FileSystem_TypeInfo, v39, v40, v41);
+      v43 = FileSystem__Load_object_(v42, 1, Method_FileSystem_Load_Sprite___);
+      if ( v10 )
+      {
+        UnityEngine_UI_Image__set_sprite((UnityEngine_UI_Image_o *)v10, (UnityEngine_Sprite_o *)v43, 0i64);
+        v44 = JSON_Object__GetString(obj, StringLiteral_6082, StringLiteral_16440, 0i64);
+        v45 = FileSystem__Load_object_(v44, 1, Method_FileSystem_Load_Material___);
+        ((void (__fastcall *)(Il2CppObject *, Il2CppObject *, const MethodInfo *))v10->klass->vtable[33].methodPtr)(
+          v10,
+          v45,
+          v10->klass->vtable[33].method);
+        v46 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+        v47 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v46, 0i64);
+        v48 = v10->klass;
+        v49 = v10->klass->vtable[23].method;
+        *(UnityEngine_Color_o *)&call.fields.id = *v47;
+        ((void (__fastcall *)(Il2CppObject *, ItemSkinDirectory_Skin_o *, const MethodInfo *))v48->vtable[23].methodPtr)(
+          v10,
+          &call,
+          v49);
+        v53 = JSON_Object__GetString(obj, StringLiteral_16441, StringLiteral_16442, 0i64);
+        if ( (CommunityEntity_TypeInfo->_2.bitflags2 & 2) != 0 && !CommunityEntity_TypeInfo->_2.cctor_finished )
+          il2cpp_runtime_class_init(CommunityEntity_TypeInfo, v50, v51, v52);
+        v54 = CommunityEntity__ParseEnum_VerticalWrapMode_(v53, 0, Method_CommunityEntity_ParseEnum_Image_Type___);
+        UnityEngine_UI_Image__set_type((UnityEngine_UI_Image_o *)v10, v54, 0i64);
+        if ( v30 )
+        {
+          v30[13].klass = (Il2CppClass *)v10;
+          init_csharp_struct_member((__int64)&v30[13], (__int64)v10);
+          goto LABEL_23;
+        }
+      }
+    }
+LABEL_162:
+    null_ref_exception();
+  }
+  if ( v8 <= 0x3A32ED4B )
+  {
+    if ( v8 == 938738728 )
+    {
+      if ( System_String__op_Equality(v7, StringLiteral_16425, 0i64) )
+      {
+        if ( go )
+        {
+          v118 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Outline___);
+          v119 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+          v120 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v119, 0i64);
+          if ( v118 )
+          {
+            *(UnityEngine_Color_o *)&call.fields.id = *v120;
+            UnityEngine_UI_Shadow__set_effectColor((UnityEngine_UI_Shadow_o *)v118, (UnityEngine_Color_o *)&call, 0i64);
+            v121 = JSON_Object__GetString(obj, (System_String_o *)StringLiteral_16448, StringLiteral_16449, 0i64);
+            v122 = UnityEngine_Vector2Ex__Parse(v121, 0i64);
+            UnityEngine_UI_Shadow__set_effectDistance((UnityEngine_UI_Shadow_o *)v118, v122, 0i64);
+            v123 = JSON_Object__ContainsKey(obj, StringLiteral_16450, 0i64);
+            UnityEngine_UI_Shadow__set_useGraphicAlpha((UnityEngine_UI_Shadow_o *)v118, v123, 0i64);
+            return;
+          }
+        }
+        goto LABEL_162;
+      }
+      return;
+    }
+    if ( v8 != 976416075 || !System_String__op_Equality(v7, StringLiteral_16422, 0i64) )
+      return;
+    v124 = sub_1803B99A0((__int64)CommunityEntity___c__DisplayClass19_0_TypeInfo);
+    Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+      (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v124,
+      0i64);
+    if ( !go )
+      goto LABEL_162;
+    v125 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Image___);
+    if ( !v124 )
+      goto LABEL_162;
+    v126 = (UnityEngine_UI_MaskableGraphic_o **)(v124 + 16);
+    *(_QWORD *)(v124 + 16) = v125;
+    init_csharp_struct_member(v124 + 16, (__int64)v125);
+    v127 = *(UnityEngine_UI_Image_o **)(v124 + 16);
+    v131 = JSON_Object__GetString(obj, StringLiteral_16438, StringLiteral_16439, 0i64);
+    if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+      il2cpp_runtime_class_init(FileSystem_TypeInfo, v128, v129, v130);
+    v132 = FileSystem__Load_object_(v131, 1, Method_FileSystem_Load_Sprite___);
+    if ( !v127 )
+      goto LABEL_162;
+    UnityEngine_UI_Image__set_sprite(v127, (UnityEngine_Sprite_o *)v132, 0i64);
+    v133 = *v126;
+    v134 = JSON_Object__GetString(obj, StringLiteral_6082, StringLiteral_16440, 0i64);
+    v135 = FileSystem__Load_object_(v134, 1, Method_FileSystem_Load_Material___);
+    if ( !v133 )
+      goto LABEL_162;
+    ((void (__fastcall *)(UnityEngine_UI_MaskableGraphic_o *, Il2CppObject *, const MethodInfo *))v133->klass->vtable._33_set_material.methodPtr)(
+      v133,
+      v135,
+      v133->klass->vtable._33_set_material.method);
+    v136 = *v126;
+    v137 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+    v138 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v137, 0i64);
+    if ( !v136 )
+      goto LABEL_162;
+    v139 = v136->klass;
+    v140 = v136->klass->vtable._23_set_color.method;
+    *(UnityEngine_Color_o *)&call.fields.id = *v138;
+    ((void (__fastcall *)(UnityEngine_UI_MaskableGraphic_o *, ItemSkinDirectory_Skin_o *, const MethodInfo *))v139->vtable._23_set_color.methodPtr)(
+      v136,
+      &call,
+      v140);
+    v141 = (UnityEngine_UI_Image_o *)*v126;
+    v145 = JSON_Object__GetString(obj, StringLiteral_16441, StringLiteral_16442, 0i64);
+    if ( (CommunityEntity_TypeInfo->_2.bitflags2 & 2) != 0 && !CommunityEntity_TypeInfo->_2.cctor_finished )
+      il2cpp_runtime_class_init(CommunityEntity_TypeInfo, v142, v143, v144);
+    v146 = CommunityEntity__ParseEnum_VerticalWrapMode_(v145, 0, Method_CommunityEntity_ParseEnum_Image_Type___);
+    if ( !v141 )
+      goto LABEL_162;
+    UnityEngine_UI_Image__set_type(v141, v146, 0i64);
+    if ( JSON_Object__ContainsKey(obj, StringLiteral_16443, 0i64) )
+    {
+      v147 = JSON_Object__GetString(obj, StringLiteral_16443, *(System_String_o **)&StringLiteral_73, 0i64);
+      if ( System_UInt32__TryParse(v147, textureID, 0i64) )
+        CommunityEntity__ApplyTextureToImage(this, *v126, textureID[0], 0i64);
+    }
+    if ( JSON_Object__ContainsKey(obj, StringLiteral_16444, 0i64) )
+    {
+      v148 = JSON_Object__GetInt(obj, StringLiteral_16444, 0, 0i64);
+      v150 = ItemManager__FindItemDefinition(v148, 0i64);
+      if ( (UnityEngine_Object_TypeInfo->_2.bitflags2 & 2) != 0 && !UnityEngine_Object_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(UnityEngine_Object_TypeInfo, v149, v151, v152);
+      if ( UnityEngine_Object__op_Inequality((UnityEngine_Object_o *)v150, 0i64, 0i64) )
+      {
+        if ( !*v126 )
+          goto LABEL_162;
+        ((void (__fastcall *)(UnityEngine_UI_MaskableGraphic_o *, _QWORD, const MethodInfo *))(*v126)->klass->vtable._33_set_material.methodPtr)(
+          *v126,
+          0i64,
+          (*v126)->klass->vtable._33_set_material.method);
+        if ( !v150 || !*v126 )
+          goto LABEL_162;
+        UnityEngine_UI_Image__set_sprite((UnityEngine_UI_Image_o *)*v126, v150->fields.iconSprite, 0i64);
+        if ( JSON_Object__ContainsKey(obj, StringLiteral_16445, 0i64) )
+        {
+          v153 = sub_1803B99A0((__int64)CommunityEntity___c__DisplayClass19_1_TypeInfo);
+          Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+            (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v153,
+            0i64);
+          if ( !v153 )
+            goto LABEL_162;
+          *(_QWORD *)(v153 + 24) = v124;
+          init_csharp_struct_member(v153 + 24, v124);
+          v154 = JSON_Object__GetNumber(obj, StringLiteral_16445, 0.0, 0i64);
+          v155 = 0i64;
+          if ( v154 >= 9.223372036854776e18 )
+          {
+            v154 = v154 - 9.223372036854776e18;
+            if ( v154 < 9.223372036854776e18 )
+              v155 = 0x8000000000000000ui64;
+          }
+          *(_QWORD *)(v153 + 16) = v155 + (unsigned int)(int)v154;
+          v156 = (System_Collections_Generic_IEnumerable_TSource__o *)v150->fields.skins;
+          v157 = (OcclusionCulling_OnVisibilityChanged_o *)sub_1803B99A0((__int64)System_Func_ItemSkinDirectory_Skin__bool__TypeInfo);
+          OcclusionCulling_OnVisibilityChanged___ctor(
+            v157,
+            (Il2CppObject *)v153,
+            Method_CommunityEntity___c__DisplayClass19_1__CreateComponents_b__0__,
+            Method_System_Func_ItemSkinDirectory_Skin__bool___ctor__);
+          System_Linq_Enumerable__FirstOrDefault_ItemSkinDirectory_Skin__6459661008(
+            &call,
+            v156,
+            (System_Func_TSource__bool__o *)v157,
+            (const MethodInfo_1069AD0 *)Method_System_Linq_Enumerable_FirstOrDefault_ItemSkinDirectory_Skin____6498818288);
+          v172 = call;
+          if ( _mm_cvtsi128_si32(*(__m128i *)&call.fields.id) == *(_DWORD *)(v153 + 16) )
+          {
+            v167 = *(_QWORD *)(v153 + 24);
+            if ( !v167 )
+              goto LABEL_162;
+            v168 = *(UnityEngine_UI_Image_o **)(v167 + 16);
+            v169 = sub_1806358C0(&v172, 0i64);
+            if ( !v169 || !v168 )
+              goto LABEL_162;
+            v166 = *(UnityEngine_Sprite_o **)(v169 + 32);
+            v165 = v168;
+          }
+          else
+          {
+            v158 = *(_QWORD *)(v153 + 16);
+            v159 = (OcclusionCulling_OnVisibilityChanged_o *)sub_1803B99A0((__int64)System_Action_TypeInfo);
+            OcclusionCulling_OnVisibilityChanged___ctor(
+              v159,
+              (Il2CppObject *)v153,
+              Method_CommunityEntity___c__DisplayClass19_1__CreateComponents_b__1__,
+              0i64);
+            v161 = (UnityEngine_Object_o *)Rust_Workshop_WorkshopIconLoader__Find(
+                                             v158,
+                                             0i64,
+                                             (System_Action_o *)v159,
+                                             0i64);
+            if ( (UnityEngine_Object_TypeInfo->_2.bitflags2 & 2) != 0 && !UnityEngine_Object_TypeInfo->_2.cctor_finished )
+              il2cpp_runtime_class_init(UnityEngine_Object_TypeInfo, v160, v162, v163);
+            if ( !UnityEngine_Object__op_Inequality(v161, 0i64, 0i64) )
+              goto LABEL_161;
+            v164 = *(_QWORD *)(v153 + 24);
+            if ( !v164 )
+              goto LABEL_162;
+            v165 = *(UnityEngine_UI_Image_o **)(v164 + 16);
+            if ( !v165 )
+              goto LABEL_162;
+            v166 = (UnityEngine_Sprite_o *)v161;
+          }
+          UnityEngine_UI_Image__set_sprite(v165, v166, 0i64);
+        }
+      }
+    }
+LABEL_161:
+    CommunityEntity__GraphicComponentCreated(this, (UnityEngine_UI_Graphic_o *)*v126, obj, 0i64);
+    return;
+  }
+  if ( v8 == 1120441549 )
+  {
+    if ( System_String__op_Equality(v7, StringLiteral_16423, 0i64) )
+    {
+      if ( !go )
+        goto LABEL_162;
+      v10 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_RawImage___);
+      v68 = JSON_Object__GetString(obj, StringLiteral_16438, StringLiteral_16446, 0i64);
+      if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(FileSystem_TypeInfo, v67, v69, v70);
+      v71 = FileSystem__Load_object_(v68, 1, Method_FileSystem_Load_Texture___);
+      if ( !v10 )
+        goto LABEL_162;
+      UnityEngine_UI_RawImage__set_texture((UnityEngine_UI_RawImage_o *)v10, (UnityEngine_Texture_o *)v71, 0i64);
+      v72 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+      v73 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v72, 0i64);
+      v74 = v10->klass;
+      v75 = v10->klass->vtable[23].method;
+      *(UnityEngine_Color_o *)&call.fields.id = *v73;
+      ((void (__fastcall *)(Il2CppObject *, ItemSkinDirectory_Skin_o *, const MethodInfo *))v74->vtable[23].methodPtr)(
+        v10,
+        &call,
+        v75);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_6082, 0i64) )
+      {
+        v77 = JSON_Object__GetString(obj, StringLiteral_6082, *(System_String_o **)&StringLiteral_73, 0i64);
+        if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+          il2cpp_runtime_class_init(FileSystem_TypeInfo, v76, v78, v79);
+        v80 = FileSystem__Load_object_(v77, 1, Method_FileSystem_Load_Material___);
+        ((void (__fastcall *)(Il2CppObject *, Il2CppObject *, const MethodInfo *))v10->klass->vtable[33].methodPtr)(
+          v10,
+          v80,
+          v10->klass->vtable[33].method);
+      }
+      if ( JSON_Object__ContainsKey(obj, *(System_String_o **)&StringLiteral_2313, 0i64) )
+      {
+        v81 = (UnityEngine_MonoBehaviour_o *)Rust_Global__get_Runner(0i64);
+        v83 = JSON_Object__GetString(
+                obj,
+                *(System_String_o **)&StringLiteral_2313,
+                *(System_String_o **)&StringLiteral_73,
+                0i64);
+        if ( !byte_1832F47E8 )
+        {
+          sub_1803B9870(14909i64, v82);
+          byte_1832F47E8 = 1;
+        }
+        v84 = sub_1803B99A0((__int64)CommunityEntity__LoadTextureFromWWW_d__22_TypeInfo);
+        Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+          (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v84,
+          0i64);
+        *(_QWORD *)(v84 + 40) = v10;
+        *(_DWORD *)(v84 + 16) = 0;
+        init_csharp_struct_member(v84 + 40, (__int64)v10);
+        *(_QWORD *)(v84 + 32) = v83;
+        init_csharp_struct_member(v84 + 32, (__int64)v83);
+        if ( !v81 )
+          goto LABEL_162;
+        UnityEngine_MonoBehaviour__StartCoroutine_Auto(v81, (System_Collections_IEnumerator_o *)v84, 0i64);
+      }
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16443, 0i64) )
+      {
+        v85 = JSON_Object__GetString(obj, StringLiteral_16443, *(System_String_o **)&StringLiteral_73, 0i64);
+        if ( System_UInt32__TryParse(v85, &result, 0i64) )
+          CommunityEntity__ApplyTextureToImage(this, (UnityEngine_UI_MaskableGraphic_o *)v10, result, 0i64);
+      }
+LABEL_23:
+      CommunityEntity__GraphicComponentCreated(this, (UnityEngine_UI_Graphic_o *)v10, obj, 0i64);
+      return;
+    }
+  }
+  else if ( v8 == 1466421966 )
+  {
+    if ( System_String__op_Equality(v7, StringLiteral_16426, 0i64) )
+    {
+      if ( !go )
+        goto LABEL_162;
+      v86 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_Text___);
+      v87 = JSON_Object__GetInt(obj, StringLiteral_16431, 14, 0i64);
+      if ( !v86 )
+        goto LABEL_162;
+      UnityEngine_UI_Text__set_fontSize((UnityEngine_UI_Text_o *)v86, v87, 0i64);
+      v88 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7507, StringLiteral_16433, 0i64);
+      v90 = System_String__Concat_6470864448(StringLiteral_16432, v88, 0i64);
+      if ( (FileSystem_TypeInfo->_2.bitflags2 & 2) != 0 && !FileSystem_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(FileSystem_TypeInfo, v89, v91, v92);
+      v93 = FileSystem__Load_object_(v90, 1, Method_FileSystem_Load_Font___);
+      UnityEngine_UI_Text__set_font((UnityEngine_UI_Text_o *)v86, (UnityEngine_Font_o *)v93, 0i64);
+      v95 = JSON_Object__GetString(obj, StringLiteral_16434, *(System_String_o **)&StringLiteral_73, 0i64);
+      if ( (CommunityEntity_TypeInfo->_2.bitflags2 & 2) != 0 && !CommunityEntity_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(CommunityEntity_TypeInfo, v94, v96, v97);
+      v98 = CommunityEntity__ParseEnum_VerticalWrapMode_(v95, 0, Method_CommunityEntity_ParseEnum_TextAnchor___);
+      UnityEngine_UI_Text__set_alignment((UnityEngine_UI_Text_o *)v86, v98, 0i64);
+      v99 = JSON_Object__GetString(obj, *(System_String_o **)&StringLiteral_7459, StringLiteral_16435, 0i64);
+      v100 = UnityEngine_ColorEx__Parse((UnityEngine_Color_o *)&call, v99, 0i64);
+      v101 = v86->klass;
+      v102 = v86->klass->vtable[23].method;
+      *(UnityEngine_Color_o *)&call.fields.id = *v100;
+      ((void (__fastcall *)(Il2CppObject *, ItemSkinDirectory_Skin_o *, const MethodInfo *))v101->vtable[23].methodPtr)(
+        v86,
+        &call,
+        v102);
+      v103 = UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_InputField___);
+      v104 = (UnityEngine_UI_InputField_o *)v103;
+      if ( !v103 )
+        goto LABEL_162;
+      UnityEngine_UI_InputField__set_textComponent(
+        (UnityEngine_UI_InputField_o *)v103,
+        (UnityEngine_UI_Text_o *)v86,
+        0i64);
+      v105 = JSON_Object__GetInt(obj, StringLiteral_16451, 0, 0i64);
+      UnityEngine_UI_InputField__set_characterLimit(v104, v105, 0i64);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16447, 0i64) )
+      {
+        v106 = sub_1803B99A0((__int64)CommunityEntity___c__DisplayClass19_4_TypeInfo);
+        Rust_Ai_CoverPoint__StartCooldown_d__33__System_IDisposable_Dispose(
+          (Rust_Ai_CoverPoint__StartCooldown_d__33_o *)v106,
+          0i64);
+        v107 = JSON_Object__GetString(obj, StringLiteral_16447, *(System_String_o **)&StringLiteral_73, 0i64);
+        if ( !v106 )
+          goto LABEL_162;
+        *(_QWORD *)(v106 + 16) = v107;
+        init_csharp_struct_member(v106 + 16, (__int64)v107);
+        v108 = (UnityEngine_Events_UnityEvent_Vector2__o *)v104->fields.m_OnEndEdit;
+        *(_QWORD *)&call.fields.id = sub_1803B99A0((__int64)UnityEngine_Events_UnityAction_string__TypeInfo);
+        OcclusionCulling_OnVisibilityChanged___ctor(
+          *(OcclusionCulling_OnVisibilityChanged_o **)&call.fields.id,
+          (Il2CppObject *)v106,
+          Method_CommunityEntity___c__DisplayClass19_4__CreateComponents_b__4__,
+          Method_UnityEngine_Events_UnityAction_string___ctor__);
+        if ( !v108 )
+          goto LABEL_162;
+        UnityEngine_Events_UnityEvent_Vector2___AddListener(
+          v108,
+          *(UnityEngine_Events_UnityAction_T0__o **)&call.fields.id,
+          Method_UnityEngine_Events_UnityEvent_string__AddListener__);
+      }
+      v109 = JSON_Object__GetString(
+               obj,
+               (System_String_o *)StringLiteral_3317,
+               string_TypeInfo->static_fields->Empty,
+               0i64);
+      UnityEngine_UI_InputField__set_text(v104, v109, 0i64);
+      v104->fields.m_ReadOnly = JSON_Object__GetBoolean(obj, StringLiteral_16452, 0, 0i64);
+      v113 = JSON_Object__GetString(obj, StringLiteral_16453, StringLiteral_16454, 0i64);
+      if ( (CommunityEntity_TypeInfo->_2.bitflags2 & 2) != 0 && !CommunityEntity_TypeInfo->_2.cctor_finished )
+        il2cpp_runtime_class_init(CommunityEntity_TypeInfo, v110, v111, v112);
+      v114 = CommunityEntity__ParseEnum_VerticalWrapMode_(
+               v113,
+               0,
+               Method_CommunityEntity_ParseEnum_InputField_LineType___);
+      UnityEngine_UI_InputField__set_lineType(v104, v114, 0i64);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16455, 0i64) )
+        UnityEngine_UI_InputField__set_inputType(v104, 2, 0i64);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16456, 0i64) )
+        UnityEngine_GameObject__AddComponent_object_(
+          go,
+          Method_UnityEngine_GameObject_AddComponent_NeedsKeyboardInputField___);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16457, 0i64) )
+        UnityEngine_GameObject__AddComponent_object_(go, Method_UnityEngine_GameObject_AddComponent_HudMenuInput___);
+      if ( JSON_Object__ContainsKey(obj, StringLiteral_16458, 0i64) )
+        ((void (__fastcall *)(UnityEngine_UI_InputField_o *, const MethodInfo *))v104->klass->vtable._38_Select.methodPtr)(
+          v104,
+          v104->klass->vtable._38_Select.method);
+      CommunityEntity__GraphicComponentCreated(this, (UnityEngine_UI_Graphic_o *)v86, obj, 0i64);
+    }
+  }
+  else if ( v8 == 1665405120 && System_String__op_Equality(v7, StringLiteral_16429, 0i64) )
+  {
+    if ( !go )
+      goto LABEL_162;
+    v115 = UnityEngine_GameObject__AddComponent_object_(
+             go,
+             Method_UnityEngine_GameObject_AddComponent_CommunityEntity_Countdown___);
+    v116 = JSON_Object__GetInt(obj, StringLiteral_16465, 0, 0i64);
+    if ( !v115 )
+      goto LABEL_162;
+    LODWORD(v115[2].klass) = v116;
+    HIDWORD(v115[2].klass) = JSON_Object__GetInt(obj, StringLiteral_16466, 0, 0i64);
+    LODWORD(v115[2].monitor) = JSON_Object__GetInt(obj, StringLiteral_16467, 1, 0i64);
+    if ( JSON_Object__ContainsKey(obj, StringLiteral_16447, 0i64) )
+    {
+      v117 = JSON_Object__GetString(obj, StringLiteral_16447, *(System_String_o **)&StringLiteral_73, 0i64);
+      v115[1].monitor = v117;
+      init_csharp_struct_member((__int64)&v115[1].monitor, (__int64)v117);
     }
   }
 }
