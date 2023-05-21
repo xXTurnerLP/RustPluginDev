@@ -7,9 +7,11 @@
 |uint8|1 byte|Unsigned|
 |uint16|2 bytes|Unsigned|
 |uint32|4 bytes|Unsigned|
+|uint64|8 bytes|Unsigned|
 |int8|1 byte|Signed|
 |int16|2 bytes|Signed|
 |int32|4 bytes|Signed|
+|int64|8 bytes|Signed|
 
 ### Header Format
 Its big endian
