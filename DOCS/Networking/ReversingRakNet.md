@@ -271,3 +271,15 @@ Image of how the structure looks in ReClass (name of fields are what they are in
 <br>
 **Description:** Initializes structures and copies ip, port and maxConnections to internal structures<br>
 NOTE: If IP is empty string it seems it binds to 0.0.0.0 which is just binding to any available IP. Usually this will be computer's IP (like: 192.168.0.170)
+
+---
+(not applicable to all packets, still researching) <br>
+(minecraft raknet wiki seems to be accurate to some extent)
+## UDP frame
+| addr | description|
+--------|----------------
+|   0   | raknet packet type |
+|   1   | sequence number (packet id) |
+|   4   | msg flags |
+|   5   | payload len in bits |
+|   7   | data ... |
