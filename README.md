@@ -14,3 +14,4 @@ To request something just open an [Issue](https://github.com/xXTurnerLP/RustPlug
 [Demo file format](/DOCS/DemoFormat.md)</br>
 [RPC List](/DOCS/RPCs.md)</br>
 [Unity UI](/DOCS/UnityUI.md)</br>
+[Unity bundles](/DOCS/Unity_Bundle_Format.md)<br>
