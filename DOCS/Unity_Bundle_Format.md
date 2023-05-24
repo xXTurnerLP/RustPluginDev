@@ -26,7 +26,39 @@ Its big endian
 |7|+12|uint32|Size of UncompressedBlocks Info|-|
 |8|+16|uint32|Flags|-|
 
-# TODO: BlockInfo not 100% correct, RE more
+### After the header
+###### UnityFS format (info from [3rd party lib](https://github.com/HearthSim/UnityPack))
+```
+if LZ4HC compression (from flags):
+    next CompressedBlocks bytes of LZ4HC compressed data:
+        first 16 bytes = guid
+        next int32 = number of blocks:
+            first int32 of the block = uncompressed size
+            next int32 of the block = compressed size
+            next int16 of the block = block flags
+        
+        next int32 = number of nodes (also called paths here: http://wiki.xentax.com/index.php/Unity_Unity3d_UnityFS):
+            first int64 of the node = offset
+            next int64 of the node = size
+            next int32 of the node = status
+            next zstring of the node = name
+```
+
+###### UnityRaw format  (info from [3rd party lib](https://github.com/HearthSim/UnityPack))
+|Offset|Type|Description|
+|:-:|:-:|:-:|
+|0|uint32|File size|
+|4|int32|Header size|
+|8|int32|File count|
+|12|int32|Bundle count|
+|16|uint32|Bundle size (if header version is >= 2)|
+|20|uint32|Uncompressed bundle size (if header version is >= 3)|
+|24|uint32|Compressed file size (if (this) header size (offset=4) is >= 60)|
+|28|uint32|Asset header size (if (this) header size (offset=4) is >= 60)|
+|32|int32|*unknown*|
+|36|uint8|*unknown*|
+|37|zstring|Name|
+
 ### BlockInfo Format
 |Reference ID|Offset|Type|Description|
 |:-:|:-:|:-:|:-:|
@@ -44,9 +76,9 @@ Its big endian
 ### Flags
 |Bit|Mask|Description|
 |:-:|:-:|:-:|
-|1-6|0x3F|Compression type. 0 on all bits means no compresion|
-|8|0x80|Determines the BlockInfo offset.<br>If 0 its `ID:5 - ID:6`<br>If 1 its `sizeof ID:4 + sizeof ID:3 + 26`|
-|9|0x100|Determines how much offset to add to BlockInfo offset, related to bit 8.<br>See notes (1)<br>The offset is `sizeof ID:4 + sizeof ID:3 + 26` (related to bit 8)<br>If 1 it adds `10`<br>If 0 it adds `sizeof ID:1 + 1`
+|0-5|0x3F|Compression type. 0 on all bits means no compresion|
+|7|0x80|Determines the BlockInfo offset.<br>If 0 its `ID:5 - ID:6`<br>If 1 its `sizeof ID:4 + sizeof ID:3 + 26`|
+|8|0x100|Determines how much offset to add to BlockInfo offset, related to bit 8.<br>See notes (1)<br>The offset is `sizeof ID:4 + sizeof ID:3 + 26` (related to bit 8)<br>If 1 it adds `10`<br>If 0 it adds `sizeof ID:1 + 1`
 
 ### Compression Type
 |Bits|Decimal|Description|
